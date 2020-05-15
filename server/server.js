@@ -11,13 +11,29 @@ io.on("connection", socekt => {
   console.log("a user connected");
 
   socekt.emit("newMessage", {
-    from: "User",
-    text: "I am intrested",
+    from: "Admin",
+    text: "Welcome to the chat app",
+    createdAt: Date.now()
+  });
+
+  socekt.broadcast.emit("newMessage", {
+    from: "Admin",
+    text: "New User joined",
     createdAt: Date.now()
   });
 
   socekt.on("createMessage", message => {
-    console.log("createMessage", message);
+    io.emit("newMessage", {
+      from: message.from,
+      text: message.text,
+      createdAt: Date.now()
+    });
+
+    // socekt.broadcast.emit("newMessage", {
+    //   from: message.from,
+    //   text: message.text,
+    //   createdAt: Date.now()
+    // });
   });
 
   socekt.on("disconnect", () => {
