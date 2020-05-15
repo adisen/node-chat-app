@@ -10,6 +10,16 @@ app.use(express.static(publicPath));
 io.on("connection", socekt => {
   console.log("a user connected");
 
+  socekt.emit("newMessage", {
+    from: "User",
+    text: "I am intrested",
+    createdAt: Date.now()
+  });
+
+  socekt.on("createMessage", message => {
+    console.log("createMessage", message);
+  });
+
   socekt.on("disconnect", () => {
     console.log("User disconnected");
   });
