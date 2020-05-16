@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const { generateMessage } = require("./message");
+const { generateMessage, generateLocationMessage } = require("./message");
 
 describe("generateMessage", () => {
   it("should generate the correct message object", () => {
@@ -13,5 +13,19 @@ describe("generateMessage", () => {
       from,
       text
     });
+  });
+});
+
+describe("generateLocationMessage", () => {
+  it("should generate the correct location object", () => {
+    let from = "test";
+    let latitude = 1;
+    let longitude = 19;
+    let url = "https://www.google.com/maps?q=1,19";
+
+    let res = generateLocationMessage(from, latitude, longitude);
+
+    expect(res.createdAt).to.be.a("number");
+    expect(res).to.include({ from, url });
   });
 });
