@@ -24,8 +24,7 @@ io.on("connection", socekt => {
   socekt.on("createMessage", (message, callback) => {
     console.log("CreateMessage", message);
     io.emit("newMessage", generateMessage(message.from, message.text));
-
-    callback("This is from the server");
+    callback();
   });
 
   socekt.on("createLocationMessage", coords => {
