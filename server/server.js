@@ -21,8 +21,11 @@ io.on("connection", socekt => {
     generateMessage("Admin", "New User joined")
   );
 
-  socekt.on("createMessage", message => {
+  socekt.on("createMessage", (message, callback) => {
+    console.log("CreateMessage", message);
     io.emit("newMessage", generateMessage(message.from, message.text));
+
+    callback("This is from the server");
 
     // socekt.broadcast.emit("newMessage", {
     //   from: message.from,
