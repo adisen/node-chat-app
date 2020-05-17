@@ -8,6 +8,27 @@ let locationButton = document.querySelector("#send-location");
 let template = document.querySelector("#template").innerHTML;
 let locationTemplate = document.querySelector("#location-template").innerHTML;
 
+// Scrolling feature
+function scrollToBottom() {
+  let newMessage = messages.lastElementChild;
+
+  let clientHeight = messages.clientHeight;
+  let scrollTop = messages.scrollTop;
+  let scrollHeight = messages.scrollHeight;
+  let newMessageHeight = newMessage.clientHeight;
+  let lastMessageHeight = 0;
+  newMessage.previousSibling
+    ? (lastMessageHeight = newMessage.previousSibling.clientHeight)
+    : (lastMessageHeight = 0);
+
+  if (
+    clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
+    scrollHeight
+  ) {
+    messages.scrollTop = scrollHeight;
+  }
+}
+
 socket.on("connect", () => {
   console.log("Connected to server");
 });
@@ -29,6 +50,7 @@ socket.on("newMessage", function(message) {
   div.innerHTML = rendered;
 
   messages.appendChild(div);
+  scrollToBottom();
 });
 
 // New location message
@@ -44,6 +66,7 @@ socket.on("newLocationMessage", function(message) {
   div.innerHTML = rendered;
 
   messages.appendChild(div);
+  scrollToBottom();
 });
 
 // Form
@@ -60,8 +83,6 @@ form.addEventListener("submit", e => {
       message.value = "";
     }
   );
-
-  console.log(message.innerHTML);
 });
 
 // Location
