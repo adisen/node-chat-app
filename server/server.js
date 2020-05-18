@@ -4,39 +4,52 @@ const path = require("path");
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const { generateMessage, generateLocationMessage } = require("./utils/message");
+const { isRealString } = require("./utils/validation");
 
 const publicPath = path.join(__dirname, "../public");
 app.use(express.static(publicPath));
 
-io.on("connection", socekt => {
+io.on("connection", socket => {
   console.log("a user connected");
 
-  socekt.emit(
+  socket.emit(
     "newMessage",
     generateMessage("Admin", "Welcome to the chat app")
   );
 
-  socekt.broadcast.emit(
+  socket.broadcast.emit(
     "newMessage",
     generateMessage("Admin", "New User joined")
   );
 
-  socekt.on("createMessage", (message, callback) => {
+  //On user join
+  socket.on("join", (params, callback) => {
+    if (!isRealString(params.name) && !isRealString(params.room)) {
+      callback("Name and room name are required");
+    }
+
+    callback();
+  });
+
+  // On user send new message
+  socket.on("createMessage", (message, callback) => {
     console.log("CreateMessage", message);
     io.emit("newMessage", generateMessage(message.from, message.text));
     callback();
   });
 
-  socekt.on("createLocationMessage", coords => {
+  // On user send location
+  socket.on("createLocationMessage", coords => {
     io.emit(
       "newLocationMessage",
       generateLocationMessage("Admin", coords.latitude, coords.longitude)
     );
   });
 
-  socekt.on("disconnect", () => {
+  // On user disconnect
+  socket.on("disconnect", () => {
     console.log("User disconnected");
-    socekt.broadcast.emit(
+    socket.broadcast.emit(
       "newMessage",
       generateMessage("Admin", "User disconnected")
     );
