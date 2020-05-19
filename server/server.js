@@ -14,7 +14,7 @@ app.use(express.static(publicPath));
 let users = new Users();
 
 io.on("connection", socket => {
-  console.log("a user connected");
+  // console.log("a user connected");
 
   //On user join
   socket.on("join", (params, callback) => {
