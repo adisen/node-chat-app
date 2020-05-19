@@ -31,7 +31,3 @@ class Users {
 }
 
 module.exports = { Users };
-// addUser(id, name, room)
-// removeuser(id)
-// getUser(id)
-// getUserList(room)

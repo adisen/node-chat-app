@@ -5,6 +5,7 @@ let form = document.querySelector("#message-form");
 let message = document.querySelector("#message");
 let messages = document.querySelector("#messages");
 let locationButton = document.querySelector("#send-location");
+let usersList = document.querySelector("#users");
 let template = document.querySelector("#template").innerHTML;
 let locationTemplate = document.querySelector("#location-template").innerHTML;
 
@@ -45,6 +46,18 @@ socket.on("connect", () => {
 
 socket.on("disconnect", () => {
   console.log("Disconnected from server");
+});
+
+socket.on("updateUserList", function(users) {
+  // console.log("User List", users);
+  let ul = document.createElement("ul");
+  users.forEach(function(user) {
+    let li = document.createElement("li");
+    li.textContent = user;
+    ul.appendChild(li);
+  });
+
+  usersList.innerHTML = users;
 });
 
 // New message
