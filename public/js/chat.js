@@ -49,7 +49,6 @@ socket.on("disconnect", () => {
 });
 
 socket.on("updateUserList", function(users) {
-  // console.log("User List", users);
   let ul = document.createElement("ul");
   users.forEach(function(user) {
     let li = document.createElement("li");
@@ -58,7 +57,6 @@ socket.on("updateUserList", function(users) {
   });
 
   usersList.innerHTML = ul.innerHTML;
-  // console.log(ul);
 });
 
 // New message
@@ -100,7 +98,6 @@ form.addEventListener("submit", e => {
   socket.emit(
     "createMessage",
     {
-      from: "User",
       text: message.value
     },
     function() {
