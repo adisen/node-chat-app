@@ -36,18 +36,18 @@ describe("Users", () => {
 
     let res = users.addUser(user.id, user.name, user.room);
 
-    expect(users.users).equals([user]);
+    expect(users.users).to.deep.equal([user]);
   });
 
   it("should return name for node course", () => {
     let userList = users.getUserList("Node Course");
 
-    expect(userList).equal(["Israel", "Tobi"]);
+    expect(userList).to.deep.equal(["Israel", "Tobi"]);
   });
 
   it("should return name for react course", () => {
     let userList = users.getUserList("React Course");
 
-    expect(userList).equal(["Eniola"]);
+    expect(userList).to.deep.equal(["Eniola"]);
   });
 });

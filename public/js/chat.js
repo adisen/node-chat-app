@@ -53,11 +53,12 @@ socket.on("updateUserList", function(users) {
   let ul = document.createElement("ul");
   users.forEach(function(user) {
     let li = document.createElement("li");
-    li.textContent = user;
+    li.innerText = user;
     ul.appendChild(li);
   });
 
-  usersList.innerHTML = users;
+  usersList.innerHTML = ul.innerHTML;
+  // console.log(ul);
 });
 
 // New message
