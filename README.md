@@ -4,20 +4,22 @@ This is a chat app implemented with NodeJS and SocketIO
 
 ## Setup and Installtion
 
-1. Clone the repo with:
+1. Set up Snowplow Micro on your local machine. Check [here](https://github.com/snowplow-incubator/snowplow-micro/) for instructions on how to set up Snowplow Micro.
+
+2. Clone the repo with:
 
 ```bash
 ~user: $ git clone git@github.com:adisen/node-chat-app.git
 ```
 
-2. Install Dependencies
+3. Install Dependencies
 
 ```bash
 ~user: $ cd node-chat-app
 ~user: $ npm i
 ```
 
-3. Start the app
+4. Start the app
 
 ```bash
 ~user: $ npm run server
